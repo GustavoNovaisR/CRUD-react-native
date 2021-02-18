@@ -3,15 +3,16 @@ import { FlatList, View, Alert } from "react-native";
 import { ListItem, Avatar, Button } from "react-native-elements";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { AntDesign } from "@expo/vector-icons";
-import UsersContext from "../context/UsersContext";
+import UsersContext, { User } from "../context/UsersContext";
+import { UsersContextType } from "../context/UsersContext";
 
 type Props = {
   navigation: StackNavigationProp<any>;
 };
-const UserList = (props: Props) => {
-  const { state, dispatch }: any = useContext(UsersContext);
+const UserList: React.FC<Props> = (props) => {
+  const { state, dispatch } = useContext(UsersContext) as UsersContextType;
 
-  function confirmDelete(user: any) {
+  function confirmDelete(user: User) {
     Alert.alert("Excluir Usuário", "Deseja excluir Usiário?", [
       {
         text: "Cancelar",
@@ -28,7 +29,7 @@ const UserList = (props: Props) => {
       },
     ]);
   }
-  function getActions(user: any) {
+  function getActions(user: User) {
     return (
       <>
         <Button
@@ -44,7 +45,7 @@ const UserList = (props: Props) => {
       </>
     );
   }
-  function getUserItem({ item: user }: any) {
+  function getUserItem({ item: user }: { item: User }) {
     return (
       <ListItem
         key={user.id}
@@ -63,7 +64,7 @@ const UserList = (props: Props) => {
   return (
     <View>
       <FlatList
-        keyExtractor={(user: any) => user.id.toString()}
+        keyExtractor={(user: User) => user.id.toString()}
         data={state.users}
         renderItem={getUserItem}
       />

@@ -1,13 +1,15 @@
 import React, { useContext, useState } from "react";
 import { Text, View, TextInput, StyleSheet, Button } from "react-native";
-import UsersContext from "../context/UsersContext";
+import UsersContext, {
+  ActionNames,
+  User,
+  UsersContextType,
+} from "../context/UsersContext";
 
 const UserForm = ({ route, navigation }: any) => {
-  // console.log(route);
-
-  const { state, dispatch }: any = useContext(UsersContext);
-  const estado = route.params ?? {};
-  const [user, setUser] = useState(estado);
+  const { dispatch } = useContext(UsersContext) as UsersContextType;
+  const userParams: User = route.params ?? {};
+  const [user, setUser] = useState(userParams);
   return (
     <View style={style.form}>
       <Text>Name</Text>
@@ -36,9 +38,9 @@ const UserForm = ({ route, navigation }: any) => {
       <Button
         title="Salvar"
         onPress={() => {
-          console.log(user);
+          const actionName: ActionNames = user.id ? "updateUser" : "createUser";
           dispatch({
-            type: user.id ? "updateUser" : "createUser",
+            type: actionName,
             payload: user,
           });
           navigation.goBack();
@@ -48,7 +50,11 @@ const UserForm = ({ route, navigation }: any) => {
   );
 };
 
-const estilo: StyleSheet.NamedStyles<any> = {
+type classesStyle = {
+  form: {};
+  input: {};
+};
+const estilo: StyleSheet.NamedStyles<classesStyle> = {
   form: {
     padding: 12,
   },
