@@ -1,5 +1,6 @@
 {
   "expo": {
+    "entryPoint": "./src/App.tsx",
     "name": "react-native-crud",
     "slug": "react-native-crud",
     "version": "1.0.0",
@@ -8,7 +9,7 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#ccc"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
